@@ -1,305 +1,188 @@
- <style>
-    .dropdown-menu {
-            display: none;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .dropdown-menu.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .sidebar.show {
-            transform: translateX(0);
-        }
-        .overlay {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .overlay.show {
-            display: block;
-            opacity: 1;
-        }
-    </style>
-   
- 
+<div class="header">
+	<div class="header-content">
+		<nav class="navbar navbar-expand">
+			<div class="collapse navbar-collapse justify-content-between">
+				<div class="header-left">
+					<div class="search_bar dropdown">
+						<span class="search_icon p-3 c-pointer" data-bs-toggle="dropdown">
+							<i class="mdi mdi-magnify"></i>
+						</span>
+						<div class="dropdown-menu p-0 m-0">
+							<form>
+								<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+							</form>
+						</div>
+					</div>
+				</div>
 
+				<ul class="navbar-nav header-right">
+					<li class="nav-item dropdown notification_dropdown">
+						<a class="nav-link bell dlab-theme-mode p-0" href="javascript:void(0);">
+							<i id="icon-light" class="fas fa-sun"></i>
+							<i id="icon-dark" class="fas fa-moon"></i>
+						</a>
+					</li>
+					<li class="nav-item dropdown notification_dropdown">
+						<a class="nav-link bell-link " href="javascript:void(0);">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="22.871" viewBox="0 0 24 22.871">
+							<g  data-name="Layer 2" transform="translate(-2 -2)">
+							<path id="Path_9" data-name="Path 9" d="M23.268,2H4.73A2.733,2.733,0,0,0,2,4.73V17.471A2.733,2.733,0,0,0,4.73,20.2a.911.911,0,0,1,.91.91v1.94a1.82,1.82,0,0,0,2.83,1.514l6.317-4.212a.9.9,0,0,1,.5-.153h4.436a2.742,2.742,0,0,0,2.633-2L25.9,5.462A2.735,2.735,0,0,0,23.268,2Zm.879,2.978-3.539,12.74a.915.915,0,0,1-.88.663H15.292a2.718,2.718,0,0,0-1.514.459L7.46,23.051v-1.94a2.733,2.733,0,0,0-2.73-2.73.911.911,0,0,1-.91-.91V4.73a.911.911,0,0,1,.91-.91H23.268a.914.914,0,0,1,.879,1.158Z" transform="translate(0 0)"/>
+							<path id="Path_10" data-name="Path 10" d="M7.91,10.82h4.55a.91.91,0,1,0,0-1.82H7.91a.91.91,0,1,0,0,1.82Z" transform="translate(-0.45 -0.63)"/>
+							<path id="Path_11" data-name="Path 11" d="M16.1,13H7.91a.91.91,0,1,0,0,1.82H16.1a.91.91,0,1,0,0-1.82Z" transform="translate(-0.45 -0.99)"/>
+							</g>
+						</svg>
+							<span class="badge light text-white bg-primary rounded-circle">76</span>
+						</a>
+					</li>
+					<li class="nav-item dropdown notification_dropdown">
+						<a class="nav-link bell ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+							<svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+								<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+								<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+							</svg>
+							<div class="pulse-css"></div>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<ul class="list-unstyled">
+								<li class="media dropdown-item align-items-center gap-3">
+									<span class="success"><i class="ti-user"></i></span>
+									<div class="media-body">
+										<a href="javascript:void(0);">
+											<p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+											</p>
+										</a>
+									</div>
+									<span class="notify-time">3:20 am</span>
+								</li>
+								<li class="media dropdown-item align-items-center gap-3">
+									<span class="primary"><i class="ti-shopping-cart"></i></span>
+									<div class="media-body">
+										<a href="javascript:void(0);">
+											<p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
+										</a>
+									</div>
+									<span class="notify-time">3:20 am</span>
+								</li>
+								<li class="media dropdown-item align-items-center gap-3">
+									<span class="danger"><i class="ti-bookmark"></i></span>
+									<div class="media-body">
+										<a href="javascript:void(0);">
+											<p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+											</p>
+										</a>
+									</div>
+									<span class="notify-time">3:20 am</span>
+								</li>
+								<li class="media dropdown-item align-items-center gap-3">
+									<span class="primary"><i class="ti-heart"></i></span>
+									<div class="media-body">
+										<a href="javascript:void(0);">
+											<p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+										</a>
+									</div>
+									<span class="notify-time">3:20 am</span>
+								</li>
+								<li class="media dropdown-item align-items-center gap-3">
+									<span class="success"><i class="ti-image"></i></span>
+									<div class="media-body">
+										<a href="javascript:void(0);">
+											<p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+											</p>
+										</a>
+									</div>
+									<span class="notify-time">3:20 am</span>
+								</li>
+							</ul>
+							<a class="all-notification" href="javascript:void(0);">See all notifications <i
+									class="ti-arrow-right"></i></a>
+						</div>
+					</li>
+					<li class="nav-item dropdown notification_dropdown">
+						<a class="nav-link ai-icon" href="javascript:void(0);" data-bs-toggle="dropdown">
+							<svg xmlns="http://www.w3.org/2000/svg" width="23.262" height="24" viewBox="0 0 23.262 24">
+								<g id="icon" transform="translate(-1565 90)">
+								<path id="setting_1_" data-name="setting (1)" d="M30.45,13.908l-1-.822a1.406,1.406,0,0,1,0-2.171l1-.822a1.869,1.869,0,0,0,.432-2.385L28.911,4.293a1.869,1.869,0,0,0-2.282-.818l-1.211.454a1.406,1.406,0,0,1-1.88-1.086l-.213-1.276A1.869,1.869,0,0,0,21.475,0H17.533a1.869,1.869,0,0,0-1.849,1.567L15.47,2.842a1.406,1.406,0,0,1-1.88,1.086l-1.211-.454a1.869,1.869,0,0,0-2.282.818L8.126,7.707a1.869,1.869,0,0,0,.432,2.385l1,.822a1.406,1.406,0,0,1,0,2.171l-1,.822a1.869,1.869,0,0,0-.432,2.385L10.1,19.707a1.869,1.869,0,0,0,2.282.818l1.211-.454a1.406,1.406,0,0,1,1.88,1.086l.213,1.276A1.869,1.869,0,0,0,17.533,24h3.943a1.869,1.869,0,0,0,1.849-1.567l.213-1.276a1.406,1.406,0,0,1,1.88-1.086l1.211.454a1.869,1.869,0,0,0,2.282-.818l1.972-3.415a1.869,1.869,0,0,0-.432-2.385ZM27.287,18.77l-1.211-.454a3.281,3.281,0,0,0-4.388,2.533l-.213,1.276H17.533l-.213-1.276a3.281,3.281,0,0,0-4.388-2.533l-1.211.454L9.75,15.355l1-.822a3.281,3.281,0,0,0,0-5.067l-1-.822L11.721,5.23l1.211.454A3.281,3.281,0,0,0,17.32,3.151l.213-1.276h3.943l.213,1.276a3.281,3.281,0,0,0,4.388,2.533l1.211-.454,1.972,3.414h0l-1,.822a3.281,3.281,0,0,0,0,5.067l1,.822ZM19.5,7.375A4.625,4.625,0,1,0,24.129,12,4.63,4.63,0,0,0,19.5,7.375Zm0,7.375A2.75,2.75,0,1,1,22.254,12,2.753,2.753,0,0,1,19.5,14.75Z" transform="translate(1557.127 -90)"></path>
+								</g>
+							</svg>
 
-<header class="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-white px-4 md:px-6">
-        <div class="flex items-center gap-2">
-            <button id="toggleSidebar" class="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:bg-gray-100 h-10 w-10 flex lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
-                    <path d="M4 12h16"></path>
-                    <path d="M4 18h16"></path>
-                    <path d="M4 6h16"></path>
-                </svg>
-                <span class="sr-only">Toggle sidebar</span>
-            </button>
-            <div class="hidden sm:block md:w-[350px]">
-                <div class="relative w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500">
-                        <path d="m21 21-4.34-4.34"></path>
-                        <circle cx="11" cy="11" r="8"></circle>
-                    </svg>
-                    <input class="flex h-10 rounded-md border border-gray-300 px-3 py-2 text-sm w-full bg-white pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search shipments, clients, orders..." type="search">
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-2 md:gap-4">
-            <!-- Theme Toggle -->
-            <button class="inline-flex items-center justify-center text-sm font-medium transition-colors hover:bg-gray-100 h-8 w-8 p-2 bg-blue-50 rounded-full" aria-label="Switch to dark theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2"></path>
-                    <path d="M12 20v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="m17.66 17.66 1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m6.34 17.66-1.41 1.41"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
-                </svg>
-            </button>
-            
-          
-        
-                
-               <!-- Notifications Dropdown -->
-            <div class="relative">
-                <button id="notificationButton" class="inline-flex items-center justify-center text-sm font-medium transition-colors hover:bg-gray-100 h-8 w-8 relative p-2 bg-blue-50 rounded-full" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-blue-600">
-                        <path d="M10.268 21a2 2 0 0 0 3.464 0"></path>
-                        <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path>
-                    </svg>
-                    <span class="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">3</span>
-                </button>
-                
-                <!-- Notification Dropdown Menu -->
-                <div id="notificationDropdown" class="dropdown-menu absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-md shadow-lg border border-gray-200 max-h-96 overflow-y-auto">
-                    <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                        <h3 class="font-semibold text-gray-900">Notifications</h3>
-                        <button class="text-xs text-blue-600 hover:text-blue-700">Mark all as read</button>
-                    </div>
-                    <div class="divide-y divide-gray-100">
-                        <!-- Notification 1 -->
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                            <div class="flex gap-3">
-                                <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">New shipment arrived</p>
-                                    <p class="text-xs text-gray-500 mt-1">Shipment #SH-2024-001 has been delivered to Lagos warehouse</p>
-                                    <p class="text-xs text-blue-600 mt-1">2 minutes ago</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <span class="inline-block w-2 h-2 bg-blue-600 rounded-full"></span>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <!-- Notification 2 -->
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                            <div class="flex gap-3">
-                                <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
-                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">Payment received</p>
-                                    <p class="text-xs text-gray-500 mt-1">Client Abiola Industries paid ₦2,500,000 for Order #ORD-456</p>
-                                    <p class="text-xs text-blue-600 mt-1">1 hour ago</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <span class="inline-block w-2 h-2 bg-blue-600 rounded-full"></span>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <!-- Notification 3 -->
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                            <div class="flex gap-3">
-                                <div class="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600">
-                                        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                                        <line x1="12" y1="9" x2="12" y2="13"></line>
-                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">Delivery delay alert</p>
-                                    <p class="text-xs text-gray-500 mt-1">Shipment #SH-2024-003 delayed due to customs clearance</p>
-                                    <p class="text-xs text-blue-600 mt-1">3 hours ago</p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <span class="inline-block w-2 h-2 bg-blue-600 rounded-full"></span>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <!-- Notification 4 (Read) -->
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition bg-gray-50/50">
-                            <div class="flex gap-3">
-                                <div class="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="9" cy="7" r="4"></circle>
-                                        <line x1="19" y1="8" x2="19" y2="14"></line>
-                                        <line x1="22" y1="11" x2="16" y2="11"></line>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-700">New client registered</p>
-                                    <p class="text-xs text-gray-500 mt-1">Dangote Group has been added to your client list</p>
-                                    <p class="text-xs text-gray-400 mt-1">Yesterday</p>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <!-- Notification 5 (Read) -->
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition bg-gray-50/50">
-                            <div class="flex gap-3">
-                                <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-700">Stock level low</p>
-                                    <p class="text-xs text-gray-500 mt-1">Warehouse A has only 15% capacity remaining</p>
-                                    <p class="text-xs text-gray-400 mt-1">2 days ago</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="px-4 py-3 border-t border-gray-200 text-center">
-                        <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium">View all notifications</a>
-                    </div>
-                </div>
-            </div>
-            
-  
-            
-            <!-- User Dropdown -->
-            <div class="relative">
-                <button id="userMenuButton" class="inline-flex items-center justify-center text-sm font-medium transition-colors hover:bg-gray-100 h-8 w-8 p-2 bg-blue-50 rounded-full" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-blue-600">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </button>
-                
-                <!-- Dropdown Menu -->
-                <div id="userDropdown" class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200">
-                    <div class="py-1">
-                        <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            <span>Profile</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                            <span>Inbox</span>
-                        </a>
-                        <div class="border-t border-gray-200 my-1"></div>
-                        <a href="{{ route('admin.logout') }}" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                <polyline points="16 17 21 12 16 7"></polyline>
-                                <line x1="21" y1="12" x2="9" y2="12"></line>
-                            </svg>
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
-
-    <script>
-        // Notification Dropdown Toggle
-        const notificationButton = document.getElementById('notificationButton');
-        const notificationDropdown = document.getElementById('notificationDropdown');
-
-        notificationButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-            // Close user dropdown if open
-            userDropdown.classList.remove('show');
-        });
-
-        // User Dropdown Toggle
-        const userMenuButton = document.getElementById('userMenuButton');
-        const userDropdown = document.getElementById('userDropdown');
-
-        userMenuButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userDropdown.classList.toggle('show');
-            // Close notification dropdown if open
-            notificationDropdown.classList.remove('show');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-            if (!notificationButton.contains(e.target) && !notificationDropdown.contains(e.target)) {
-                notificationDropdown.classList.remove('show');
-            }
-        });
-
-        // Sidebar Toggle
-        const toggleSidebar = document.getElementById('toggleSidebar');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        function openSidebar() {
-            sidebar.classList.add('show');
-            sidebarOverlay.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSidebarFn() {
-            sidebar.classList.remove('show');
-            sidebarOverlay.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        toggleSidebar.addEventListener('click', openSidebar);
-        closeSidebar.addEventListener('click', closeSidebarFn);
-        sidebarOverlay.addEventListener('click', closeSidebarFn);
-
-        // Close sidebar on ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeSidebarFn();
-            }
-        });
-    </script>
-      
-
-
-
- 
+							<span class="badge light text-white bg-primary rounded-circle">15</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-end">
+							<div id="DZ_W_TimeLine02" class="widget-timeline dlab-scroll style-1 p-3 height370">
+							<ul class="timeline">
+								<li>
+									<div class="timeline-badge primary"></div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>10 minutes ago</span>
+										<h6 class="mb-0">Youtube, a video-sharing website, goes live <strong class="text-primary">$500</strong>.</h6>
+									</a>
+								</li>
+								<li>
+									<div class="timeline-badge info">
+									</div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>20 minutes ago</span>
+										<h6 class="mb-0">New order placed <strong class="text-info">#XF-2356.</strong></h6>
+										<p class="mb-0">Quisque a consequat ante Sit amet magna at volutapt...</p>
+									</a>
+								</li>
+								<li>
+									<div class="timeline-badge danger">
+									</div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>30 minutes ago</span>
+										<h6 class="mb-0">john just buy your product <strong class="text-warning">Sell $250</strong></h6>
+									</a>
+								</li>
+								<li>
+									<div class="timeline-badge success">
+									</div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>15 minutes ago</span>
+										<h6 class="mb-0">StumbleUpon is acquired by eBay. </h6>
+									</a>
+								</li>
+								<li>
+									<div class="timeline-badge warning">
+									</div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>20 minutes ago</span>
+										<h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
+									</a>
+								</li>
+								<li>
+									<div class="timeline-badge dark">
+									</div>
+									<a class="timeline-panel text-muted" href="javascript:void(0);">
+										<span>20 minutes ago</span>
+										<h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
+									</a>
+								</li>
+							</ul>
+						</div>
+						</div>
+					</li>
+					<li class="nav-item dropdown header-profile">
+						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+							<img src="public/assets/images/profile/education/pic1.jpg" width="20" alt=""/>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a href="app_profile.html" class="dropdown-item ai-icon">
+								<svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+								<span class="ms-2">Profile </span>
+							</a>
+							<a href="email_inbox.html" class="dropdown-item ai-icon">
+								<svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+								<span class="ms-2">Inbox </span>
+							</a>
+							<a href="page_login.html" class="dropdown-item ai-icon">
+								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+								<span class="ms-2">Logout </span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</div>

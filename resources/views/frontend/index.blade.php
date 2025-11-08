@@ -11,25 +11,25 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo">
+                <a href="{{ route('home') }}" class="logo">
                     CareLinx
                     <span class="logo-sub">by Sharecare</span>
                 </a>
                 <nav>
-                    <a href="login.html">Log in</a>
-                    <a href="#">Find a caregiver</a>
-                    <a href="#">Become a care provider</a>
-                    <div class="dropdown">
-                        <span class="dropdown-toggle">Solutions</span>
-                        <div class="dropdown-menu">
-                            <a href="#">Health Plans</a>
-                            <a href="#">Health Systems</a>
-                            <a href="#">Professional Staffing</a>
-                        </div>
-                    </div>
+                    <a href="{{ route('user.login') }}">Log in</a>
+                    <a href="{{ route('find.a.caregiver') }}">Find a caregiver</a>
+                    <a href="{{ route('become.a.caregiver') }}">Become a care provider</a>
+                   <div class="dropdown">
+    <a href="#" class="dropdown-toggle">Solutions</a>
+    <div class="dropdown-menu">
+        <a href="{{ route('health.plan') }}">Health Plans</a>
+        <a href="{{ route('healthcare.system') }}">Health Systems</a>
+        <a href="{{ route('healthcare.staffing') }}">Professional Staffing</a>
+    </div>
+</div>
                 </nav>
                 <div class="header-right">
-                    <a href="login.html" class="login-link">Log in</a>
+                    <a href="{{ route('user.login') }}" class="login-link">Log in</a>
                 </div>
             </div>
         </div>

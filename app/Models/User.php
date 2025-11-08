@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+     protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -38,11 +34,61 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+  
+
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'date_of_birth' => 'date',
+        'last_login' => 'datetime',
+        'additional_languages' => 'array',
+        'qualifications' => 'array',
+        'certifications' => 'array',
+        'work_experiences' => 'array',
+        'references' => 'array',
+        'care_skills' => 'array',
+        'preferred_care_types' => 'array',
+        'preferred_work_settings' => 'array',
+        'preferred_employment_types' => 'array',
+        'preferred_locations' => 'array',
+        'available_days' => 'array',
+        'available_shifts' => 'array',
+        'documents' => 'array',
+        'user_consents' => 'array',
+    ];
+
+    // Get full name
+    public function getFullNameAttribute()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+        return trim("{$this->first_name} {$this->last_name}");
+    }
+
+    // Get initials for avatar
+    public function getInitialsAttribute()
+    {
+        $firstInitial = $this->first_name ? substr($this->first_name, 0, 1) : '';
+        $lastInitial = $this->last_name ? substr($this->last_name, 0, 1) : '';
+        return strtoupper($firstInitial . $lastInitial) ?: 'U';
+    }
+
+    // Calculate profile completion percentage
+    public function getProfileCompletionAttribute()
+    {
+        $fields = [
+            'first_name', 'last_name', 'date_of_birth', 'gender', 
+            'phone_primary', 'address_line1', 'city', 'country',
+            'emergency_contact_name', 'emergency_contact_phone',
+            'id_type', 'id_number', 'work_authorization_status',
         ];
+
+        $filledFields = 0;
+        foreach ($fields as $field) {
+            if (!empty($this->$field)) {
+                $filledFields++;
+            }
+        }
+
+        return round(($filledFields / count($fields)) * 100);
     }
 }
