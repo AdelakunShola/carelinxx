@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dashboard - CareLinx</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+@extends('user1.user_dashboard')
+@section('user1')
     <style>
         /* Include all the dashboard styles from your original file */
         .dashboard-container { background: #f5f5f5; min-height: 100vh; padding-bottom: 50px; }
@@ -17,39 +11,7 @@
         .progress-fill { background: #00a896; height: 100%; border-radius: 10px; }
         /* Add other styles as needed */
     </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="{{ route('home') }}" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by Sharecare</span>
-                </a>
-                <nav>
-                    <nav>
-    <a href="{{ route('user.dashboard') }}">Dashboard</a>
-    <a href="{{ route('user.jobs') }}">Find Jobs</a>
-    <a href="{{ route('user.applications') }}">My Applications</a>
-    <a href="{{ route('user.profile') }}">Profile</a>
-</nav>
-                </nav>
-                <div class="header-right">
-                    <a href="#" style="margin-right: 15px;">🔔</a>
-                    <div class="user-menu">
-                        <div class="user-avatar">{{ $user->initials }}</div>
-                    </div>
-                    <form method="POST" action="{{ route('user.logout') }}" style="display: inline;">
-                        @csrf
-                        <button type="submit" style="background: none; border: none; color: #666; cursor: pointer; margin-left: 15px; font-family: Arial, sans-serif;">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
+
 
     <div class="dashboard-container">
         <!-- Welcome Banner -->
@@ -57,18 +19,18 @@
             <div class="container">
                 <div class="welcome-content">
                     <div class="welcome-text">
-                        <h1>Welcome back, {{ $user->first_name ?? $user->email }}! 👋</h1>
+                        <h1>Welcome back, {{ $user->first_name ?? NULL }}! 👋</h1>
                         <p>Ready to make a difference today? Check out new job opportunities below.</p>
                     </div>
                     <div class="profile-completion">
                         <h3>Complete Your Profile</h3>
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: {{ $user->profile_completion }}%;"></div>
+                            <div class="progress-fill" style="width: {{ $user->profile_completion ?? NULL}}%;"></div>
                         </div>
-                        <p class="progress-text">{{ $user->profile_completion }}% complete - 
-                            @if($user->profile_completion < 50)
+                        <p class="progress-text">{{ $user->profile_completion ?? NULL }}% complete - 
+                            @if($user->profile_completion ?? NULL < 50)
                                 Add basic information
-                            @elseif($user->profile_completion < 75)
+                            @elseif($user->profile_completion ?? NULL < 75)
                                 Add certifications to boost visibility
                             @else
                                 Almost there! Complete all sections
@@ -94,7 +56,7 @@
                 <h2 style="color: #2d5f5d; margin-bottom: 20px;">Quick Stats</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                     <div style="background: #f8f8f8; padding: 30px; border-radius: 10px; text-align: center;">
-                        <div style="font-size: 36px; color: #00a896; font-weight: 600; margin-bottom: 5px;">{{ $user->profile_completion }}%</div>
+                        <div style="font-size: 36px; color: #00a896; font-weight: 600; margin-bottom: 5px;">{{ $user->profile_completion ?? NULL }}%</div>
                         <div style="font-size: 13px; color: #666; font-family: Arial, sans-serif;">Profile Complete</div>
                     </div>
                     <div style="background: #f8f8f8; padding: 30px; border-radius: 10px; text-align: center;">
@@ -113,19 +75,19 @@
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; font-family: Arial, sans-serif; font-size: 14px;">
                     <div>
                         <strong style="color: #666;">Email:</strong>
-                        <p style="margin: 5px 0;">{{ $user->email }}</p>
+                        <p style="margin: 5px 0;">{{ $user->email ?? null}}</p>
                     </div>
                     <div>
                         <strong style="color: #666;">Full Name:</strong>
-                        <p style="margin: 5px 0;">{{ $user->full_name ?: 'Not provided' }}</p>
+                        <p style="margin: 5px 0;">{{ $user?->full_name ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <strong style="color: #666;">Phone:</strong>
-                        <p style="margin: 5px 0;">{{ $user->phone_primary ?: 'Not provided' }}</p>
+                        <p style="margin: 5px 0;">{{ $user->phone_primary ?? 'Not provided'  }}</p>
                     </div>
                     <div>
                         <strong style="color: #666;">Location:</strong>
-                        <p style="margin: 5px 0;">{{ $user->city }}, {{ $user->country ?: 'Not provided' }}</p>
+                        <p style="margin: 5px 0;">{{ $user->city ?? 'Not provided'}}, {{ $user->country ?? 'Not provided'  }}</p>
                     </div>
                 </div>
                 <a href="{{ route('user.profile') }}" style="display: inline-block; margin-top: 25px; background: #00a896; color: white; padding: 12px 30px; border-radius: 20px; text-decoration: none; font-size: 15px; font-family: Arial, sans-serif;">
@@ -135,19 +97,4 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer style="margin-top: 50px;">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">
-                        CareLinx
-                        <span class="logo-sub">by Sharecare</span>
-                    </div>
-                    <p class="footer-text">©2024 Sharecare, Inc.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+   @endsection

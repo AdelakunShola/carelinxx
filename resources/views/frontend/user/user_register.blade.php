@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - CareLinx</title>
+    <title>Sign Up - NUVIACARE</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
+
+         @php
+    $settings = App\Models\setting::first();
+@endphp
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <a href="{{ route('home') }}" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by @sharecare</span>
+                    NUVIACARE
+                    <span class="logo-sub">by @NUVIACARE</span>
                 </a>
                 <div class="header-right">
-                    <a href="tel:1-800-494-3106" class="phone">📞 1-800-494-3106</a>
+                   <a href="tel:{{ $settings->company_phone }}">{{ $settings->company_phone ?? '+234 123 456 7890' }}</a>
                     <a href="{{ route('user.login') }}" class="login-link">Log In</a>
                 </div>
             </div>

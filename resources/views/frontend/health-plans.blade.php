@@ -1,310 +1,943 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>In-home care for health plans - CareLinx</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-    <link rel="stylesheet" href="additional-styles.css">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by Sharecare</span>
-                </a>
-                <nav>
-                    <a href="login.html">Log in</a>
-                    <a href="#">Find a caregiver</a>
-                    <a href="#">Become a care provider</a>
-                    <div class="dropdown">
-                        <span class="dropdown-toggle">Solutions</span>
-                        <div class="dropdown-menu">
-                            <a href="health-plans.html">Health Plans</a>
-                            <a href="health-systems.html">Health Systems</a>
-                            <a href="healthcare-staffing.html">Professional Staffing</a>
+@extends('user.user_dashboard')
+
+@section('user')
+<style>
+.hero-alt-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.hero-alt-image {
+    flex: 0 0 60%;
+    min-width: 300px;
+}
+
+.hero-alt-image img {
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.hero-alt-text {
+    flex: 0 0 35%;
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .hero-alt-image,
+    .hero-alt-text {
+        flex: 0 0 100%;
+    }
+}
+
+
+
+
+
+.container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #1a5745;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .carousel-section {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            gap: 0;
+            height: 300px;
+        }
+
+        .carousel-image {
+            flex: 0 0 50%;
+            height: 100%;
+        }
+
+        .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .carousel-text {
+            flex: 0 0 50%;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .carousel-text h3 {
+            font-size: 48px;
+            color: #1a5745;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .carousel-text p {
+            font-size: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 0 40px;
+        }
+
+        .carousel-arrow {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .carousel-arrow:hover {
+            color: #1a5745;
+        }
+
+        .carousel-arrow:disabled {
+            color: #e0e0e0;
+            cursor: not-allowed;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #d4d4d4;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #6fb5a0;
+        }
+
+        @media (max-width: 968px) {
+            .carousel-item {
+                flex-direction: column;
+                padding: 40px;
+                gap: 30px;
+            }
+
+            .carousel-image {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+
+            .carousel-text {
+                padding-right: 0;
+            }
+
+            .carousel-text h3 {
+                font-size: 36px;
+            }
+
+            .carousel-text p {
+                font-size: 18px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+        }
+</style>
+
+<style>
+
+/* Success Modal */
+.success-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+.success-modal.show {
+    display: flex;
+}
+.success-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 450px;
+    margin: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.4s ease-out;
+}
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #0d6e6e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.5s ease-out 0.2s backwards;
+}
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+.success-icon svg {
+    width: 50px;
+    height: 50px;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    animation: drawCheck 0.5s ease-out 0.4s backwards;
+}
+@keyframes drawCheck {
+    from {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+    }
+    to {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 0;
+    }
+}
+.success-modal h3 {
+    color: #0d6e6e;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.success-modal p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+.success-modal-btn {
+    background: #0d6e6e;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.success-modal-btn:hover {
+    background: #0a5252;
+}
+
+
+</style>
+
+
+<style>
+.contact-section {
+    padding: 80px 20px;
+    background: #f8f9fa;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contact-text h2 {
+    font-size: 42px;
+    color: #1a5f4f;
+    font-weight: 400;
+    line-height: 1.3;
+    font-family: Georgia, serif;
+}
+
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form select {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.contact-form select:focus {
+    outline: none;
+    border-color: #0d6e6e;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0d6e6e;
+}
+
+.form-group textarea {
+    height: 180px;
+    resize: vertical;
+    min-height: 120px;
+    max-height: 300px;
+}
+
+.form-group .is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.btn-primary {
+    background: #0d6e6e;
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    align-self: flex-start;
+}
+
+.btn-primary:hover {
+    background: #0a5252;
+}
+
+.btn-large {
+    padding: 16px 40px;
+    font-size: 17px;
+}
+
+/* Tablet Styles */
+@media (max-width: 968px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-text {
+        text-align: center;
+    }
+
+    .contact-text h2 {
+        font-size: 36px;
+    }
+
+    .contact-form {
+        padding: 30px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 640px) {
+    .contact-section {
+        padding: 60px 15px;
+    }
+
+    .contact-text h2 {
+        font-size: 28px;
+    }
+
+    .contact-form {
+        padding: 25px 20px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .contact-form select {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .form-group textarea {
+        height: 150px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 14px 24px;
+        align-self: stretch;
+    }
+
+    .btn-large {
+        padding: 16px 24px;
+        font-size: 16px;
+    }
+}
+
+</style>
+
+<section class="hero-alt">
+    <div class="container">
+        <div class="hero-alt-content">
+            <div class="hero-alt-image">
+                <img src="{{ asset('501.jpg') }}" alt="Caregiver with elderly woman">
+            </div>
+            <div class="hero-alt-text">
+                <h1>In-home care for health systems</h1>
+                <p style="font-size: 19px">Reduce patient costs and scalably lowering the total cost of care.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Patient-Centered Section -->
+    <section class="content-section">
+       <div class="container">
+        <div class="header">
+            <h1>Addressing member needs and health plan priorities</h1>
+            <p>Improve health outcomes, reduce total cost of care, and improve member satisfaction with in-home care. NuviaCare by NuviaCare helps plans support members who are:</p>
+        </div>
+
+        <div class="carousel-section">
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item">
+                        <div class="carousel-image">
+                            <img src="{{ asset('207.jpg') }}" alt="Healthcare worker with elderly patient">
+                        </div>
+                        <div class="carousel-text">
+                            <h3>High need</h3>
+                            <p>Members with multiple chronic conditions, and typically accompanied by functional limitations, behavioral health conditions, and social risk factors</p>
                         </div>
                     </div>
-                </nav>
-                <div class="header-right">
-                    <a href="login.html" class="login-link">Log in</a>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero-alt">
-        <div class="container">
-            <div class="hero-alt-content">
-                <div class="hero-alt-image">
-                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop" alt="Caregiver assisting">
-                </div>
-                <div class="hero-alt-text">
-                    <h1>In-home care for health plans</h1>
-                    <p>Improve health outcomes and lower healthcare costs with all-in-care.</p>
-                </div>
-            </div>
-        </div>
-    </header>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="carousel-image">
+                            <img src="{{ asset('208.jpg') }}" alt="Patient care">
+                        </div>
+                        <div class="carousel-text">
+                            <h3>High cost</h3>
+                            <p>Medicare spending is ~2x higher among those who  receive inadequate in-home support for basic activities  of daily living (ADLs).</p>
+                        </div>
+                    </div>
 
-    <!-- Member Needs Section -->
-    <section class="content-section">
-        <div class="container">
-            <div class="centered-content">
-                <h2>Addressing member needs and health plan priorities</h2>
-                <p>Empower health solutions, reduce total cost of care, and improve member satisfaction with in-program CareLinx therapeutic helps every couple members with care.</p>
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <div class="carousel-image">
+                            <img src="{{ asset('209.jpg') }}" alt="Home healthcare">
+                        </div>
+                        <div class="carousel-text">
+                            <h3>High Risk</h3>
+                            <p>Members who are at increased risk of chronic diseases, and medical unnecessary hospital utilization
+</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+         
         </div>
+           <div class="carousel-controls">
+                <button class="carousel-arrow" id="prevBtn" onclick="moveSlide(-1)">‹</button>
+                <div class="carousel-dots" id="dotsContainer">
+                    <span class="dot active" onclick="goToSlide(0)"></span>
+                    <span class="dot" onclick="goToSlide(1)"></span>
+                    <span class="dot" onclick="goToSlide(2)"></span>
+                </div>
+                <button class="carousel-arrow" id="nextBtn" onclick="moveSlide(1)">›</button>
+            </div>
+    </div>
+
     </section>
 
-    <!-- Carousel Section -->
-    <section class="carousel-section">
-        <div class="container">
-            <div class="carousel-item-large">
-                <div class="carousel-image">
-                    <img src="https://images.unsplash.com/photo-1609608445386-7295da0d39c8?w=400&h=300&fit=crop" alt="High need">
-                </div>
-                <div class="carousel-text">
-                    <h3>High need</h3>
-                    <p>Members with medically complex conditions, and functionally impaired or have financial constraints, behavioral health conditions, and social risk factors.</p>
-                </div>
-            </div>
-            <div class="carousel-dots">
-                <span class="dot"></span>
-                <span class="dot active"></span>
-                <span class="dot"></span>
-            </div>
-        </div>
-    </section>
+ 
 
-    <!-- Care Continuum Section -->
-    <section class="content-section" style="background: linear-gradient(135deg, #e8f4f2 0%, #f5faf9 100%);">
+  
+
+    <!-- Companionship Section -->
+    <section class="content-section" style="background: white;">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 50px;">In-home services supporting the entire care continuum</h2>
             
             <div class="two-column-section">
                 <div class="text-column">
-                    <h3>Companionship, home helper, and personal care</h3>
-                    <p>Designed as the medical program products care, community and personal attention for patients who may be experiencing social isolation, difficulty with self-care or activities like meal preparation and other tasks of daily living.</p>
+                    <h3>In-home services supporting the entire care continuum</h3>
+                    <p>Companionship, home helper, and personal care services Professional non-medical caregivers providing in-home, non-medical, personal care services as part of programs that support member experience and engagement to facilitate care gap closure.</p>
                 </div>
-                <div class="image-column">
-                    <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=600&h=400&fit=crop" alt="Personal care">
+                <div class="image-wrapper" style="border-radius: 15px 50px 30px 5px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                    <img src="{{ asset('204.jpg') }}" alt="Technology" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Clinical Care Section -->
-    <section class="content-section" style="background: white;">
-        <div class="container">
-            <div class="two-column-section reverse">
-                <div class="text-column">
+              <br><br><br>
+             <div  class="two-column-section ">
+               
+                <div class="image-wrapper" style="border-radius: 15px 50px 30px 5px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                    <img src="{{ asset('505.jpg') }}" alt="Technology" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                 <div class="text-column">
                     <h3>Clinical care support services</h3>
-                    <p>Highly trained licensed and unlicensed caregiver come directly into member homes to deliver a wide variety of programs. From disease-management with care and educational support to CCM support programs and gaps-in-care closure. Clinical services prove patient experience and enable health plans to deliver quality care at home.</p>
-                </div>
-                <div class="image-column">
-                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop" alt="Clinical care">
+                    <p>Licensed healthcare professionals and non-medical caregivers deliver non-medical, clinical care, assessments as part of a larger outcome-based clinical encounter. Clinical support programs are typically focused on high-risk, high-utilizers, and high-cost members to improve the total cost of care.  </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Customized Programs Section -->
-    <section class="customized-programs-section">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 20px;">Customized in-home care programs</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: #666;">From longitudinal support for highest-leverage members to short-term programs for high-need members after discharge, to a la carte offerings that are customized, members can transition into or between as needed.</p>
+    
+ <!-- Customized Programs Section -->
+<section style="padding: 80px 20px; background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);">
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 80px; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <h2 style="font-size: 42px; color: #1a5f4f; margin-bottom: 20px; font-weight: 400; font-family: Georgia, serif;">Customized in-home care programs</h2>
+            <p style="font-size: 18px; color: #5a5a5a; line-height: 1.6;">From longitudinal support for Medicare Advantage members to targeted support for managed care and commercial members, our in-home care programs can be tailored as a:</p>
+        </div>
+
+        <!-- Programs Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; align-items: start;">
             
-            <div class="programs-flow">
-                <div class="program-card">
-                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=300&h=200&fit=crop" alt="Needs-based care">
-                    <div class="program-card-content">
-                        <h4>Needs-based care structure by tiers</h4>
-                    </div>
+            <!-- Card 1: Transition of care (Top Left) -->
+            <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 3; transform: translateY(-20px);">
+                <img src="{{ asset('506.jpg') }}" alt="Transition of care" style="width: 100%; height: 280px; object-fit: cover; display: block;">
+                <div style="padding: 30px;">
+                    <h4 style="font-size: 26px; color: #1a5f4f; margin: 0; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Transition of care programs</h4>
                 </div>
+                <!-- Decorative circle -->
+                <div style="position: absolute; width: 180px; height: 180px; background: #1a5f4f; border-radius: 50%; top: -40px; left: -90px; z-index: -1;"></div>
+            </div>
 
-                <div class="program-card">
-                    <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=300&h=200&fit=crop" alt="Foundational care">
-                    <div class="program-card-content">
-                        <h4>A la carte and entry into foundational programs</h4>
-                    </div>
+            <!-- Card 2: Advance care management (Middle) -->
+            <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 2; transform: translateY(30px);">
+                <img src="{{ asset('507.jpg') }}" alt="Advance care management" style="width: 100%; height: 280px; object-fit: cover; display: block;">
+                <div style="padding: 30px;">
+                    <h4 style="font-size: 26px; color: #1a5f4f; margin: 0; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Advance care management & quality programs</h4>
                 </div>
+            </div>
 
-                <div class="program-card highlighted">
-                    <div class="program-card-content">
-                        <h4>Transition of care</h4>
-                    </div>
+            <!-- Card 3: Care gap closure (Top Right) -->
+            <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 3; transform: translateY(-30px);">
+                <img src="{{ asset('308.jpg') }}" alt="Care gap closure" style="width: 100%; height: 280px; object-fit: cover; display: block;">
+                <div style="padding: 30px;">
+                    <h4 style="font-size: 26px; color: #1a5f4f; margin: 0; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Care gap closure & in-home assessments</h4>
                 </div>
+                <!-- Decorative circle -->
+                <div style="position: absolute; width: 200px; height: 200px; background: #20b2aa; border-radius: 50%; bottom: -100px; right: -100px; z-index: -1;"></div>
+            </div>
 
-                <div class="program-card">
-                    <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=300&h=200&fit=crop" alt="Care gap closure">
-                    <div class="program-card-content">
-                        <h4>Care gap closure in the home environment</h4>
-                    </div>
+            <!-- Card 4: Healthcare professional staffing (Bottom Right) -->
+            <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 2; transform: translateY(0px); grid-column: span 1; margin-left: auto; max-width: 400px;">
+                <img src="{{ asset('509.jpg') }}" alt="Healthcare staffing" style="width: 100%; height: 280px; object-fit: cover; display: block;">
+                <div style="padding: 30px;">
+                    <h4 style="font-size: 26px; color: #1a5f4f; margin: 0; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Healthcare professional staffing</h4>
                 </div>
-
-                <div class="flow-connector"></div>
+                <!-- Decorative circle -->
+                <div style="position: absolute; width: 150px; height: 150px; background: #20b2aa; border-radius: 50%; bottom: -75px; left: -75px; z-index: -1;"></div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Outcomes Section -->
-    <section class="outcomes-section">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 60px;">Proven outcomes drive quality, value, and performance</h2>
+  <section style="padding: 80px 20px; background: #ffffff;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h2 style="font-size: 42px; color: #1a5f4f; margin-bottom: 20px; font-weight: 400; font-family: Georgia, serif;">Proven outcomes drive quality, value, and performance</h2>
+        </div>
+
+        <!-- Outcome 1: Reducing readmissions -->
+        <div style="display: flex; align-items: center; gap: 60px; margin-bottom: 100px; flex-wrap: wrap;">
+            <!-- Image with decorative circle -->
+            <div style="position: relative; flex-shrink: 0;">
+                <div style="width: 320px; height: 320px; border-radius: 50%; overflow: hidden; position: relative; z-index: 2;">
+                    <img src="{{ asset('403.jpg') }}" alt="Reducing readmissions" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <!-- Decorative circle bottom right -->
+                <div style="position: absolute; width: 200px; height: 200px; background: #1a5f4f; border-radius: 50%; bottom: -50px; right: -50px; z-index: 1;"></div>
+            </div>
             
-            <div class="outcome-item">
-                <div class="outcome-image-circle">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop" alt="Reducing readmissions">
-                </div>
-                <div class="outcome-content">
-                    <h3>Reducing readmissions with in-home care</h3>
-                    <div class="outcome-stats">
-                        <div class="stat">
-                            <div class="stat-number">21%</div>
-                            <div class="stat-label">reduction in 30-day readmissions with program participation</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">168</div>
-                            <div class="stat-label">fewer acute inpatient days (per 1000 member-months)</div>
-                        </div>
+            <!-- Content -->
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 36px; color: #1a5f4f; margin-bottom: 40px; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Reducing readmissions with in-home care</h3>
+                <div style="display: flex; gap: 80px; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">21%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">reduction in 30-day readmissions, Medicare participants</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="outcome-item">
-                <div class="outcome-image-circle">
-                    <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=200&h=200&fit=crop" alt="Targeted care gap">
-                </div>
-                <div class="outcome-content">
-                    <h3>Targeted care gap closure with a supplemental benefit</h3>
-                    <div class="outcome-stats">
-                        <div class="stat">
-                            <div class="stat-number">41%</div>
-                            <div class="stat-label">of members in Texas successfully closed at least one care gap</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">24%</div>
-                            <div class="stat-label">increase in annual wellness visits completed</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="outcome-item">
-                <div class="outcome-image-circle">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop" alt="Published outcomes">
-                </div>
-                <div class="outcome-content">
-                    <h3>Published outcomes and combating social isolation and loneliness</h3>
-                    <div class="outcome-stats">
-                        <div class="stat">
-                            <div class="stat-number">53%</div>
-                            <div class="stat-label">decrease in social isolation risk for members completing 8 weeks in program</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">52%</div>
-                            <div class="stat-label">decrease in loneliness among members completing 8 weeks</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="outcome-item">
-                <div class="outcome-image-circle">
-                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=200&h=200&fit=crop" alt="Customer experience">
-                </div>
-                <div class="outcome-content">
-                    <h3>Outstanding customer experience</h3>
-                    <div class="outcome-stats">
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">of all surveyed members were satisfied with their care</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">NPS score</div>
-                        </div>
+                    <div style="border-left: 2px solid #e0e0e0; padding-left: 40px;">
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">68</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">Net Promoter Score (NPS) (>50 considered excellent)</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <div class="contact-text">
-                    <h2>Contact Sharecare to learn more.</h2>
+        <!-- Outcome 2: Targeted care gap closure -->
+        <div style="display: flex; align-items: center; gap: 60px; margin-bottom: 100px; flex-wrap: wrap; flex-direction: row-reverse;">
+            <!-- Image with decorative circle -->
+            <div style="position: relative; flex-shrink: 0;">
+                <div style="width: 320px; height: 320px; border-radius: 50%; overflow: hidden; position: relative; z-index: 2;">
+                    <img src="{{ asset('302.jpg') }}" alt="Targeted care gap" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </div>
-                <div class="contact-form">
-                    <form>
-                        <select>
-                            <option>I would like to*</option>
-                            <option>Learn about health plan solutions</option>
-                            <option>Schedule a demo</option>
-                            <option>Other inquiry</option>
-                        </select>
-                        <input type="text" placeholder="First Name*" required>
-                        <input type="text" placeholder="Last Name*" required>
-                        <input type="email" placeholder="Email*" required>
-                        <button type="submit" class="btn-primary">Call to Touch</button>
-                    </form>
-                </div>
+                <!-- Decorative circle top left -->
+                <div style="position: absolute; width: 200px; height: 200px; background: #20b2aa; border-radius: 50%; top: -50px; left: -50px; z-index: 1;"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">
-                        CareLinx
-                        <span class="logo-sub">by Sharecare</span>
+            
+            <!-- Content -->
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 36px; color: #1a5f4f; margin-bottom: 40px; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Targeted care gap closure with a supplemental benefit  </h3>
+                <div style="display: flex; gap: 80px; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">41%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">increase in Primary Care Physician (PCP) engagement and capture rate</div>
                     </div>
-                    <p class="footer-text">©2024 Sharecare, Inc.</p>
-                    <p class="footer-text">CAREER | WHY PROFESSIONALS | PRIVACY | TERMS</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Links</h4>
-                    <ul>
-                        <li><a href="#">ABOUT</a></li>
-                        <li><a href="#">BLOG</a></li>
-                        <li><a href="#">NEWSROOM</a></li>
-                        <li><a href="#">HELP</a></li>
-                        <li><a href="#">PRESS</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">X</a>
-                        <a href="#" class="social-icon">f</a>
-                        <a href="#" class="social-icon">i</a>
+                    <div style="border-left: 2px solid #e0e0e0; padding-left: 40px;">
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">24%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">increase in Annual Wellness Visits (AWV)</div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p class="footer-bottom-text">
-                    CareLinx does not employ or recommend any care provider or care seeker nor is it responsible for the conduct of any care provider or care seeker.
-                </p>
-                <div class="certifications">
-                    <img src="https://via.placeholder.com/60x40?text=HITRUST" alt="HITRUST" class="cert-badge">
-                    <img src="https://via.placeholder.com/60x40?text=SOC2" alt="SOC 2" class="cert-badge">
-                    <img src="https://via.placeholder.com/60x40?text=HIPAA" alt="HIPAA" class="cert-badge">
+        </div>
+
+        <!-- Outcome 3: Published outcomes -->
+        <div style="display: flex; align-items: center; gap: 60px; margin-bottom: 40px; flex-wrap: wrap;">
+            <!-- Image with decorative circle -->
+            <div style="position: relative; flex-shrink: 0;">
+                <div style="width: 320px; height: 320px; border-radius: 50%; overflow: hidden; position: relative; z-index: 2;">
+                    <img src="{{ asset('404.jpg') }}" alt="Published outcomes" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <!-- Decorative circle bottom left -->
+                <div style="position: absolute; width: 180px; height: 180px; background: #1a5f4f; border-radius: 50%; bottom: -40px; left: -40px; z-index: 1;"></div>
+            </div>
+            
+            <!-- Content -->
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 36px; color: #1a5f4f; margin-bottom: 40px; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Published outcomes and combating social isolation and loneliness</h3>
+                <div style="display: flex; gap: 80px; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">53%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">Enrolled in a pilot felt less lonely by Week 10 of the study</div>
+                    </div>
+                    <div style="border-left: 2px solid #e0e0e0; padding-left: 40px;">
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">52%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">Enrolled in a continuing study felt less isolated by Week 10</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
 
-    <!-- Accessibility Button -->
-    <button class="accessibility-btn" aria-label="Accessibility options">♿</button>
-</body>
-</html>
+
+
+         <!-- Outcome 4: Targeted care gap closure -->
+        <div style="display: flex; align-items: center; gap: 60px; margin-bottom: 100px; flex-wrap: wrap; flex-direction: row-reverse;">
+            <!-- Image with decorative circle -->
+            <div style="position: relative; flex-shrink: 0;">
+                <div style="width: 320px; height: 320px; border-radius: 50%; overflow: hidden; position: relative; z-index: 2;">
+                    <img src="{{ asset('701.jpg') }}" alt="Targeted care gap" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <!-- Decorative circle top left -->
+                <div style="position: absolute; width: 200px; height: 200px; background: #20b2aa; border-radius: 50%; top: -50px; left: -50px; z-index: 1;"></div>
+            </div>
+            
+            <!-- Content -->
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 36px; color: #1a5f4f; margin-bottom: 40px; font-weight: 400; font-family: Georgia, serif; line-height: 1.3;">Outstanding customer experience  </h3>
+                <div style="display: flex; gap: 80px; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">100%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">of payor programs have an  excellent NPS (>50)</div>
+                    </div>
+                    <div style="border-left: 2px solid #e0e0e0; padding-left: 40px;">
+                        <div style="font-size: 56px; color: #1a5f4f; font-weight: 400; font-family: Georgia, serif; margin-bottom: 10px;">100%</div>
+                        <div style="font-size: 16px; color: #5a5a5a; line-height: 1.5; max-width: 250px;">payor client retention in the  last 2 years </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+    <div class="success-modal-content">
+        <div class="success-icon">
+            <svg viewBox="0 0 52 52">
+                <polyline points="14 27 22 35 38 19"/>
+            </svg>
+        </div>
+        <h3>Message Sent Successfully!</h3>
+        <p>Thank you for contacting us. We have received your message and will get back to you as soon as possible.</p>
+        <button class="success-modal-btn" onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-text">
+                <h2>Contact NUVIACARE to learn more.</h2>
+            </div>
+            <div class="contact-form">
+                <form action="{{ route('contact.store') }}" method="POST">
+                    @csrf
+                    <select id="subject" name="subject" class="@error('subject') is-invalid @enderror" required>
+                        <option value="">I would like to*</option>
+                        <option value="general" {{ old('subject') == 'general' ? 'selected' : '' }}>General Inquiry</option>
+                        <option value="support" {{ old('subject') == 'support' ? 'selected' : '' }}>Customer Support</option>
+                        <option value="partnership" {{ old('subject') == 'partnership' ? 'selected' : '' }}>Partnership Opportunities</option>
+                        <option value="careers" {{ old('subject') == 'careers' ? 'selected' : '' }}>Careers</option>
+                        <option value="feedback" {{ old('subject') == 'feedback' ? 'selected' : '' }}>Feedback</option>
+                        <option value="other" {{ old('subject') == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                   
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" class="@error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="@error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                        @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" class="@error('message') is-invalid @enderror" required>{{ old('message') }}</textarea>
+                        @error('message')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-large">Contact NUVIACARE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <script>
+@if(session('success') || session('message'))
+    document.addEventListener('DOMContentLoaded', function() {
+        showSuccessModal();
+    });
+@endif
+
+function showSuccessModal() {
+    document.getElementById('successModal').classList.add('show');
+}
+
+function closeModal() {
+    document.getElementById('successModal').classList.remove('show');
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('successModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
+
+
+
+<script>
+        let currentSlide = 0;
+        const totalSlides = 3;
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Initialize
+        updateSlider();
+
+        // Optional: Auto-play
+        let autoPlayInterval;
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                if (currentSlide < totalSlides - 1) {
+                    moveSlide(1);
+                } else {
+                    currentSlide = 0;
+                    updateSlider();
+                }
+            }, 5000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // Uncomment to enable auto-play
+        // startAutoPlay();
+
+        // Stop auto-play on user interaction
+        document.querySelector('.carousel-section').addEventListener('mouseenter', stopAutoPlay);
+    </script>
+   @endsection

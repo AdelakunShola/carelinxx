@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in to CareLinx</title>
+    <title>Log in to NUVIACARE</title>
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
+
+         @php
+    $settings = App\Models\setting::first();
+@endphp
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <a href="{{ route('home') }}" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by Sharecare</span>
+                    NUVIACARE
+                    <span class="logo-sub">CARE HOME</span>
                 </a>
                 <nav>
                     <a href="{{ route('find.a.caregiver') }}">Find a caregiver</a>
                     <a href="{{ route('become.a.caregiver') }}">Become a caregiver</a>
                 </nav>
                 <div class="header-right">
-                    <a href="tel:1-800-494-3106" class="phone">1-800-494-3106</a>
+                   <a href="tel:{{ $settings->company_phone }}">{{ $settings->company_phone ?? '+234 123 456 7890' }}</a>
                     <a href="{{ route('user.register') }}" class="login-link">Sign Up</a>
                 </div>
             </div>
@@ -30,7 +35,7 @@
     <!-- Login Container -->
     <div class="login-container">
         <div class="login-box">
-            <h1>Log in to CareLinx</h1>
+            <h1>Log in to NUVIACARE</h1>
 
             <!-- Success Message -->
             @if(session('success'))
@@ -105,24 +110,24 @@
             <div class="login-footer-content">
                 <div class="contact-info">
                     <h3>Contact</h3>
-                    <p>Toll-free: <a href="tel:1-800-494-3106">1-800-494-3106</a></p>
+                    <p>Toll-free: <a href="tel:{{ $settings->company_phone }}">{{ $settings->company_phone ?? '+234 123 456 7890' }}</a></p>
                     <p>Monday - Friday: 8am to 11pm EST</p>
                     <p>Saturday & Sunday: 8am to 8pm EST</p>
-                    <p>E-mail: <a href="mailto:info@carelinx.com">info@carelinx.com</a></p>
+                    <p>E-mail: <a href="mailto:{{ $settings->company_email }}">{{ $settings->company_email ?? 'info@nuviacare.com' }}</a></p>
                 </div>
                 <div class="follow-section">
                     <h3>Follow us</h3>
                     <div class="social-icons">
-                        <a href="#" class="social-icon">🐦</a>
+                        <a href="#" class="social-icon">in</a>
                         <a href="#" class="social-icon">f</a>
                         <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">x</a>
                     </div>
                 </div>
                 <div class="download-section-footer">
                     <h3>Download our app</h3>
                     <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png" alt="App Store" style="height: 40px;">
+                        <img src="{{ asset('122.webp') }}" alt="App Store" style="height: 40px;">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 40px;">
                     </div>
                 </div>
@@ -139,16 +144,14 @@
 
             <div style="text-align: center; margin-top: 30px;">
                 <div class="certifications" style="justify-content: center;">
-                    <img src="https://via.placeholder.com/80x50?text=HITRUST" alt="HITRUST CSF Certified" class="cert-badge">
-                    <img src="https://via.placeholder.com/50x50?text=SOC2" alt="SOC 2" class="cert-badge">
-                    <img src="https://via.placeholder.com/80x50?text=HIPAA" alt="HIPAA Compliant" class="cert-badge">
+                        <img src="{{ asset('01.jpg') }}" alt="HITRUST" class="cert-badge">
                 </div>
             </div>
 
             <div class="footer-bottom" style="margin-top: 30px;">
                 <p class="footer-bottom-text" style="text-align: center; max-width: 100%;">
-                    © 2025 CareLinx Inc.<br><br>
-                    CareLinx does not employ or recommend any care provider or care seeker nor is it responsible for the conduct of any care provider or care seeker.
+                    © 2025 NUVIACARE Inc.<br><br>
+                    NUVIACARE does not employ or recommend any care provider or care seeker nor is it responsible for the conduct of any care provider or care seeker.
                 </p>
             </div>
         </div>

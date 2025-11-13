@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - CareLinx</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+@extends('user1.user_dashboard')
+@section('user1')
     <style>
         .profile-container { background: #f5f5f5; min-height: 100vh; padding: 30px 0; }
         .profile-section { background: white; border-radius: 15px; padding: 35px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
@@ -25,29 +19,7 @@
         .checkbox-item { display: flex; align-items: center; gap: 5px; }
         @media (max-width: 968px) { .form-grid { grid-template-columns: 1fr; } }
     </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="{{ route('home') }}" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by Sharecare</span>
-                </a>
-                <nav>
-                    <a href="{{ route('user.dashboard') }}">Dashboard</a>
-                    <a href="{{ route('user.profile') }}">Profile</a>
-                </nav>
-                <div class="header-right">
-                    <div class="user-avatar">{{ substr($user->first_name ?? $user->email, 0, 2) }}</div>
-                    <form method="POST" action="{{ route('user.logout') }}" style="display: inline;">
-                        @csrf
-                        <button type="submit" style="background: none; border: none; color: #666; cursor: pointer; margin-left: 15px;">Logout</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
+
 
     <div class="profile-container">
         <div class="container">
@@ -408,15 +380,4 @@
         </div>
     </div>
 
-    <footer style="margin-top: 50px;">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">CareLinx <span class="logo-sub">by Sharecare</span></div>
-                    <p class="footer-text">©2024 Sharecare, Inc.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+     @endsection

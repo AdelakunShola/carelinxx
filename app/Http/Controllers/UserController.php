@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     public function Index(){
-            return view('frontend.index');
+            return view('user.index');
         }// End Method 
 
 
@@ -40,8 +41,66 @@ class UserController extends Controller
         return view('frontend.become-a-caregiver');
     }//
 
+    public function Terms()
+    {
+        return view('frontend.terms');
+    }//end method
+
+
+    public function About()
+    {
+        return view('frontend.about');
+    }//end method
+
+
+    public function Privacy()
+    {
+        return view('frontend.privacy');
+    }//end method
+
+
+    public function Contact()
+    {
+        return view('frontend.contact');
+    }//end method
        
     
+
+
+
+
+
+
+
+
+
+
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'subject' => 'required|string',
+            'message' => 'required|string|max:2000',
+        ]);
+
+        $contact = contact::create($validated);
+
+    
+
+        $notification = array(
+            'message' => 'Thank you for contacting us! We will get back to you soon.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+
+
+
 
 
 

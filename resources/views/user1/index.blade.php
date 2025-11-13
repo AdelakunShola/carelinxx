@@ -1,46 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareLinx - Giving Care to You and Your Loved Ones</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="{{ route('home') }}" class="logo">
-                    CareLinx
-                    <span class="logo-sub">by Sharecare</span>
-                </a>
-                <nav>
-                    <a href="{{ route('user.login') }}">Log in</a>
-                    <a href="{{ route('find.a.caregiver') }}">Find a caregiver</a>
-                    <a href="{{ route('become.a.caregiver') }}">Become a care provider</a>
-                   <div class="dropdown">
-    <a href="#" class="dropdown-toggle">Solutions</a>
-    <div class="dropdown-menu">
-        <a href="{{ route('health.plan') }}">Health Plans</a>
-        <a href="{{ route('healthcare.system') }}">Health Systems</a>
-        <a href="{{ route('healthcare.staffing') }}">Professional Staffing</a>
-    </div>
-</div>
-                </nav>
-                <div class="header-right">
-                    <a href="{{ route('user.login') }}" class="login-link">Log in</a>
-                </div>
-            </div>
-        </div>
-    </header>
+@extends('user.user_dashboard')
+@section('user') 
 
-    <!-- Hero Section -->
-    <section class="hero">
+<section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>CareLinx</h1>
+                    <h1>NUVIACARE</h1>
                     <p>Giving care to you and your loved ones.</p>
                 </div>
                 <div class="hero-image">
@@ -104,7 +69,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Care for everyday needs</h2>
-                <p>CareLinx has a unique solution set tailored to help reach your goals and deliver positive outcomes.</p>
+                <p>NUVIACARE has a unique solution set tailored to help reach your goals and deliver positive outcomes.</p>
             </div>
             <div class="care-cards">
                 <div class="care-card">
@@ -176,7 +141,7 @@
         <div class="container">
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
                 <h2>The right solution mix for your needs</h2>
-                <p>CareLinx has a unique solution set tailored to help reach your goals and deliver positive outcomes.</p>
+                <p>NUVIACARE has a unique solution set tailored to help reach your goals and deliver positive outcomes.</p>
             </div>
             <div class="solution-tabs">
                 <button class="tab-btn active">Health plans</button>
@@ -195,13 +160,13 @@
                     <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&h=250&fit=crop" alt="Veterans">
                     <div class="solution-card-content">
                         <h3>Veterans</h3>
-                        <p>We partner with top Veterans Initiatives and military families. CareLinx offers programs to veterans in partnership with Veteran Affairs healthcare centers, government assistance opportunities and support.</p>
+                        <p>We partner with top Veterans Initiatives and military families. NUVIACARE offers programs to veterans in partnership with Veteran Affairs healthcare centers, government assistance opportunities and support.</p>
                     </div>
                 </div>
                 <div class="solution-card">
-                    <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=400&h=250&fit=crop" alt="Sharecare Verified">
+                    <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=400&h=250&fit=crop" alt="NUVIACARE Verified">
                     <div class="solution-card-content">
-                        <h3>Sharecare Verified</h3>
+                        <h3>NUVIACARE Verified</h3>
                         <p>Trust is at the core of everything we do. Our care providers have gone through thorough background checks, multiline behavioral interviews, and customized training programs.</p>
                     </div>
                 </div>
@@ -215,7 +180,7 @@
             <h2>Testimonials</h2>
             <div class="testimonial-card">
                 <div class="quote">"</div>
-                <p class="testimonial-text">What I like most about CareLinx is the fact they take time to give personal attention to the needs of their families and caregivers to help ensure the patients get the quality care they deserve.</p>
+                <p class="testimonial-text">What I like most about NUVIACARE is the fact they take time to give personal attention to the needs of their families and caregivers to help ensure the patients get the quality care they deserve.</p>
                 <p class="testimonial-author">— Robert</p>
             </div>
             <div class="testimonial-dots">
@@ -244,7 +209,7 @@
                         <span style="font-size: 12px; color: #999;">⋮</span>
                     </div>
                     <h4 class="review-title">Partners in Care</h4>
-                    <p class="review-text">Before this crisis, thanks to the help and dedication of CareLinx care coordinators, I was able to have my father cared for. Blessings, Julie, posted 17 days ago with access to</p>
+                    <p class="review-text">Before this crisis, thanks to the help and dedication of NUVIACARE care coordinators, I was able to have my father cared for. Blessings, Julie, posted 17 days ago with access to</p>
                 </div>
                 <div class="review-card">
                     <div class="review-header">
@@ -268,51 +233,4 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">
-                        CareLinx
-                        <span class="logo-sub">by Sharecare</span>
-                    </div>
-                    <p class="footer-text">©2024 Sharecare, Inc.</p>
-                    <p class="footer-text">CAREER | WHY PROFESSIONALS | PRIVACY | TERMS</p>
-                </div>
-                <div class="footer-links">
-                    <h4>About</h4>
-                    <ul>
-                        <li><a href="#">ABOUT</a></li>
-                        <li><a href="#">INVESTORS</a></li>
-                        <li><a href="#">NEWSROOM</a></li>
-                        <li><a href="#">HELP</a></li>
-                        <li><a href="#">PRESS</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">X</a>
-                        <a href="#" class="social-icon">f</a>
-                        <a href="#" class="social-icon">i</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-bottom-text">
-                    CareLinx does not employ or recommend any care provider or care seeker nor is it responsible for the conduct of any care provider or care seeker. The CareLinx website is a venue that provides tools to help care seekers and care providers connect online. Each individual is solely responsible for selecting a care provider or care seeker for themselves or their families and for complying with all laws in connection with any employment relationship they establish.
-                </p>
-                <div class="certifications">
-                    <img src="https://via.placeholder.com/60x40?text=HITRUST" alt="HITRUST" class="cert-badge">
-                    <img src="https://via.placeholder.com/60x40?text=SOC2" alt="SOC 2" class="cert-badge">
-                    <img src="https://via.placeholder.com/60x40?text=HIPAA" alt="HIPAA" class="cert-badge">
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Accessibility Button -->
-    <button class="accessibility-btn" aria-label="Accessibility options">♿</button>
-</body>
-</html>
+    @endsection
