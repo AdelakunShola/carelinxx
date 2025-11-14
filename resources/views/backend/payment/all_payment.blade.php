@@ -55,6 +55,10 @@
                                                         <span class="badge badge-rounded badge-info">Bank</span>
                                                     @elseif($payment->payment_method == 'btc')
                                                         <span class="badge badge-rounded badge-warning">BTC</span>
+                                                    @elseif($payment->payment_method == 'CashApp')
+                                                        <span class="badge badge-rounded badge-warning">Cashapp</span>
+                                                    @elseif($payment->payment_method == 'Paypal')
+                                                        <span class="badge badge-rounded badge-warning">Paypal</span>
                                                     @else
                                                         <span class="badge badge-rounded badge-secondary">N/A</span>
                                                     @endif

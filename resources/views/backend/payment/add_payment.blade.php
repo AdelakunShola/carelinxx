@@ -35,6 +35,8 @@
                                             <option value="">Choose...</option>
                                             <option value="bank" {{ old('payment_method') == 'bank' ? 'selected' : '' }}>Bank</option>
                                             <option value="btc" {{ old('payment_method') == 'btc' ? 'selected' : '' }}>BTC</option>
+                                             <option value="CashApp" {{ old('payment_method') == 'CashApp' ? 'selected' : '' }}>CashApp</option>
+                                              <option value="Paypal" {{ old('payment_method') == 'Paypal' ? 'selected' : '' }}>Paypal</option>
                                         </select>
                                     </div>
                                 </div>
@@ -57,6 +59,7 @@
                                             <option value="">Choose...</option>
                                             <option value="usdt" {{ old('crypto_type') == 'usdt' ? 'selected' : '' }}>USDT</option>
                                             <option value="ethereum" {{ old('crypto_type') == 'ethereum' ? 'selected' : '' }}>Ethereum</option>
+                                            <option value="TRC20" {{ old('crypto_type') == 'TRC20' ? 'selected' : '' }}>TRC20</option>
                                         </select>
                                     </div>
                                 </div>
